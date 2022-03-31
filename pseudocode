@@ -1,0 +1,58 @@
+-------------------------CHECKERS-------------------------------------
+
+1. Define required constants
+  
+  --> Define object that will hold the player pieces as well as no piece (1, -1, null)
+
+
+2. Define required state variables
+ 
+  --> Use array to represent the board
+  --> turn variable
+  --> Define win conditions
+
+
+3. Store DOM Elements(page elements that will be interacted with)
+  
+  --> Store all of the squares on the board
+  --> store all of the player peices
+
+
+4. Upon loading the app
+ 
+  --> initialize state
+    - initialize starting board in the board array
+    - initialize starting players turn
+    - initialize winner to null
+
+
+  --> render the state variables on the page
+    - render board w/ pieces on correct squares
+
+
+  --> wait for user input
+    - wait for user to click a piece
+
+
+5. Handle player moving a piece
+
+  --> Obtain current state of the board to check for a winner
+
+  --> Add all pieces with availabe jumps to an array
+
+  --> Obtain index of piece that was clicked using the cached DOM element (will need to hold for checking if move is legal)
+    - If that piece does not match playerTurn - return
+    - If the piece does not match a piece with an available jump - return
+    - display message that says 'jump available, must jump'
+
+  --> If move is valid
+    - check if piece was jumped
+    - update board array to represent new position
+
+  --> All state has been updated - render board
+
+
+
+6. Handle player clicking play again
+
+  -->call init function to reset all state and start render again
