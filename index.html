@@ -12,86 +12,88 @@
     <main>
     <h1>Checkers</h1>
     <section id="board">
-        <div>
-            <div class="light-square"></div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square "></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-        </div>
-        <div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square "></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-            <div class="light-square"></div>
-        </div>
-        <div>
-            <div class="light-square"></div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square "></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-        </div>
-        <div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square "></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-            <div class="light-square"></div>
-        </div>
-        <div>
-            <div class="light-square"></div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square "></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-        </div>
-        <div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square "></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-            <div class="light-square"></div>
-        </div>
-        <div>
-            <div class="light-square"></div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square "></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-        </div>
-        <div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square black-occupied"><p class="black-piece piece"></p></div>
-            <div class="light-square"></div>
-            <div class="dark-square "></div>
-            <div class="light-square"></div>
-            <div class="dark-square red-occupied"><p class="red-piece piece"></p></div>
-            <div class="light-square"></div>
-        </div>
+      <table>
+        <tr>
+          <td class="ls"></td>
+          <td class="ds"><p class="black piece" id="b0"></p></td>
+          <td class="ls"></td>
+          <td class="ds"><p class="black piece" id="b1"></p></td>
+          <td class="ls"></td>
+          <td class="ds"><p class="black piece" id="b2"></p></td>
+          <td class="ls"></td>
+          <td class="ds"><p class="black piece" id="b3"></p></td>
+      </tr>
+      <tr>
+          <td class="ds"><p class="black piece" id="b4"></p></td>
+          <td class="ls"></td>
+          <td class="ds"><p class="black piece" id="b5"></p></td>
+          <td class="ls"></td>
+          <td class="ds"><p class="black piece" id="b6"></p></td>
+          <td class="ls"></td>
+          <td class="ds"><p class="black piece" id="b7"></p></td>
+          <td class="ls"></td>
+      </tr>
+      <tr>
+        <td class="ls"></td>
+        <td class="ds"><p class="black piece" id="b8"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="black piece" id="b9"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="black piece" id="b10"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="black piece" id="b11"></p></td>
+      </tr>
+      <tr>
+        <td class="ds"></td>
+        <td class="ls"></td>
+        <td class="ds"></td>
+        <td class="ls"></td>
+        <td class="ds"></td>
+        <td class="ls"></td>
+        <td class="ds"></td>
+        <td class="ls"></td>
+      </tr>
+      <tr>
+        <td class="ls"></td>
+        <td class="ds"></td>
+        <td class="ls"></td>
+        <td class="ds"></td>
+        <td class="ls"></td>
+        <td class="ds"></td>
+        <td class="ls"></td>
+        <td class="ds"></td>
+      </tr>
+      <tr>
+        <td class="ds"><p class="red piece" id="r0"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r1"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r2"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r3"></p></td>
+        <td class="ls"></td>
+      </tr>
+      <tr>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r4"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r5"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r6"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r7"></p></td>
+      </tr>
+      <tr>
+        <td class="ds"><p class="red piece" id="r8"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r9"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r10"></p></td>
+        <td class="ls"></td>
+        <td class="ds"><p class="red piece" id="r11"></p></td>
+        <td class="ls"></td>
+      </tr>
+      </table>
 	  </section>
         <div class="button">
             <button class="play-again-btn">Play Again</button>

@@ -1,12 +1,13 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
+    margin: auto;
 }
 
-body {
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     background-color: lightslategrey;
 }
@@ -17,6 +18,41 @@ h1 {
     margin-top: auto;
     margin-bottom: 50px;
 }
+
+div {
+    display: flex;
+    justify-content: space-between;
+}
+
+td {
+    text-align: center;
+    background-color: #BA7A3A;
+    width: 7vmin;
+    height: 7vmin;
+}
+
+.ls {
+    background-color: #e4d8ca
+}
+
+.ds {
+    background-color: #705039;
+}
+
+.black {
+    background-color: black;
+}
+.black, .red {
+    height: 5vmin;
+    width: 5vmin;
+    border-radius: 100%;
+    border-style: solid;
+    border-color: white;
+}
+
+.red {
+    background-color: red;
+} 
 
 .play-again-btn {
     display: flex;
@@ -34,44 +70,4 @@ h1 {
 .button {
     display: flex;
     justify-content: center;
-}
-
-main {
-    height: 100vh;
-    width: 100vw;
-}
-
-#board {
-    width: 100vw;
-    display: flex;
-}
-
-.dark-square, .light-square {
-    height: 7vmin;
-    width: 7vmin;
-    display: flex;
-}
-
-.dark-square {
-    background-color: #705039;
-}
-
-.light-square {
-    background-color: #e4d8ca
-}
-
-.black-piece, .red-piece {
-    height: 5vmin;
-    width: 5vmin;
-    border-radius: 100%;
-    border-style: solid;
-    border-color: white;
-
-}
-.black-piece {
-    background-color: black;
-}
-
-.red-piece {
-    background-color: red;
 }
