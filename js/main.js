@@ -19,6 +19,11 @@ let board;
 let playerTurn;
 let redPieces = [];
 let blackPieces = [];
+let selectedPiece;
+const player = {
+  '-1': 'red',
+  '1': 'black'
+}
 
 
 
@@ -54,7 +59,16 @@ function renderPieces() {
   })
 }
 
+
+// Return if item clicked is not a piece.
+//  Also return if it is not the turn of the player that clicked
 function handleClick(evt) {
   if(!evt.target.classList.contains('piece')) return;
-  console.log('clicked ME!')
+  let targetID = evt.target.id.replace('p', '');
+  targetID <= 12 ? targetID = 1 : targetID = -1
+  if(targetID !== playerTurn) return;
+  console.log(targetID);
+
+
+  playerTurn *= -1;
 }
