@@ -1,38 +1,44 @@
+/*------------------Classes---------------*/
 
+class Piece {
+  constructor(player) {
+    this.allowedToMove = true; // Every piece can move when game starts
+    // this.pieceEl = pieceEl; // Represents the linked DOM element
+    // this.position = position; // Position on board [row][col]
+    this.player = player; // Which player piece belongs to
+    this.king = false; // King
+    this.move = function() {
+
+    }
+  };
+}
 
 
 /*------------constants------------*/
 const NEW_BOARD = [
-	[null,  1,     null,  1,     null,  1,     null,  1],
-	[1,     null,  1,     null,  1,     null,  1,     null],
-	[null,  1,     null,  1,     null,  1,     null,  1],
-	[0,     null,  0,     null,  0,     null,  0,     null],
-	[null,  0,     null,  0,     null,  0,     null,  0],
-	[-1,    null, -1,     null, -1,     null, -1,      null],
-	[null, -1,     null, -1,     null, -1,     null, -1],
-	[-1,    null, -1,     null, -1,     null, -1,     null]
+	[null,  1,    null,  1,    null,  1,     null,  1],
+	[1,     null,  1,   null,  1,     null,  1,     null],
+	[null,  1,    null,  1,    null,  1,     null,  1],
+	[null,  null, null, null,  null,  null,  null,  null],
+	[null,  null, null, null,  null,  null,  null,  null],
+	[-1,    null, -1,   null,  -1,    null,  -1,    null],
+	[null,  -1,   null, -1,    null,  -1,    null, -1],
+	[-1,    null, -1,   null,  -1,    null,  -1,    null]
 ];
 
-/*------------state variables------------*/
-let board;
-let playerTurn;
-let redPieces = [];
-let blackPieces = [];
-let selectedPiece;
-const squareContains = {
-  '-1': 'red',
-  '1': 'black',
-  '0': 'ds',
-  'null': 'ls',
-}
 
+/*------------state variables------------*/
+let board = [];
+let playerTurn;
+let selectedPiece;
 
 
 /*------------DOM elements------------*/
-const pieceEls = {
-  red: document.getElementsByClassName('red'),
-  black: document.getElementsByClassName('black')
-}
+const boardEls = [...document.querySelectorAll('tr')].map((row) => {
+  return [...row.children];
+});
+const pieceEls = [...document.getElementsByClassName('piece')];
+
 
 
 
@@ -43,25 +49,41 @@ document.querySelector('table').addEventListener('click', handleClick);
 init();
 
 function init() {
-  board = NEW_BOARD;
   createNewBoard();
   playerTurn = -1;
-  getPlayerPieces();
-  render();
+  renderBoard();
 }
 
-function getPlayerPieces() {
-  board.forEach((element) => {
-    element.forEach((square) => {
-      if(square === 1) blackPieces.push(square);
-      if(square === -1) redPieces.push(square);
-    });
+// Creates new board with objects on appropriate square using a NEW_BOARD array
+function createNewBoard() {
+  board = NEW_BOARD.map((boardRow) => {
+    return boardRow.map((boardCol) => {
+      if(boardCol === null) return null;
+      return new Piece(boardCol);
+    })
   })
-};
-
-
-function render() {
 }
+
+function renderBoard() {
+  board.forEach((row, rowIndex) => {
+    row.forEach((col, colIndex) => {
+      if(boardEls[rowIndex][colIndex].classList.contains('ls')) return;
+      let square = boardEls[rowIndex][colIndex].firstChild.classList;
+      if(col === null) {
+        square.add('hidden');
+      } else if (col.player === 1) {
+        square.add('black');
+        square.remove('red');
+        square.remove('hidden');
+      } else {
+        square.add('red');
+        square.remove('black');
+        square.remove('hidden');
+      }
+    })
+  })
+}
+
 
 
 /* Return if item clicked is not a piece.
@@ -77,47 +99,4 @@ function handleClick(evt) {
   // playerTurn *= -1;
 }
 
-/*---------------functions for creating the original board---------------- */
-function createLightSquare() {
-  let ls = document.createElement('td');
-  ls.classList.add('ls')
-  return ls;
-}
 
-function createDarkSquare() {
-  let ds = document.createElement('td');
-  ds.classList.add('ds');
-  return ds;
-}
-
-function createBlackPiece() {
-  let bp = document.createElement('td');
-  bp.classList.add('ds');
-  bp.innerHTML = '<p class="black piece"></p>';
-  return bp;
-}
-
-function createWhitePiece() {
-  let wp = document.createElement('td');
-  wp.classList.add('ds');
-  wp.innerHTML = '<p class="red piece"></p>';
-  return wp;
-}
-
-function createNewBoard() {
-  board.forEach(function(element, index) {
-    element.forEach(function(square) {
-      if(square === null) {
-        document.getElementById(`row${index}`).appendChild(createLightSquare());
-      } else if(square === 0) {
-         document.getElementById(`row${index}`).appendChild(createDarkSquare());
-      } else if (square === 1) {
-         document.getElementById(`row${index}`).appendChild(createBlackPiece());
-      } else if (square === -1) {
-        document.getElementById(`row${index}`).appendChild(createWhitePiece());
-      }
-    })
-  })
-}
-
-/*------------------piece movement---------------*/

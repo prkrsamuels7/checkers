@@ -1,14 +1,3 @@
-// export default class Piece {
-//   constructor(pieceEl, position) {
-//     this.allowedToMove = true; // Every piece can move when game starts
-//     this.pieceEl = pieceEl; // Represents the linked DOM element
-//     this.position = position; // Position on board [row][col]
-//     this.player = ''; // Which player piece belongs to
-//     this.pieceEl.attr('id') >= 12 ? this.player = 1 : -1; // Map piece by id
-//     this.king = false; // King status
-//     this.move = function(tile) {}
-//   }
-// }
 
 {/* <tr id="row0">
           <td class="ls"></td>
@@ -90,3 +79,19 @@
         <td class="ds"><p class="red piece" id="p23"></p></td>
         <td class="ls"></td>
       </tr> */}
+// // formula to get distance
+// var distance = function(x1, x2, y1, y2) {
+//   return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+// }
+
+
+// function checkBoardState() {
+//   board.forEach(function(element) {
+//     element.forEach(function(square) {
+//       if(square.classList.contains('.black-occupied')) {
+//         square = '-1';
+//       }
+//     })
+//   })
+// }
+
