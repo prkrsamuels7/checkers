@@ -8,6 +8,13 @@ class Piece {
     this.king = false; // King
     this.getLegalMoves = function() {
       let legalMoves = []
+      let downRight = board[row + 1][col + 1];
+      let downLeft = board[row + 1][col - 1];
+      if(this.player === 1) {
+        if((downRight.player === -1) && downRight.downRight === null) { // Starting jump logic
+          
+        }
+      }
       if(this.player === 1 && this.king === false) {
         if(board[row + 1][col + 1] === null) legalMoves.push([row + 1, col + 1]);
         if(board[row + 1][col - 1] === null) legalMoves.push([row + 1, col - 1]);
@@ -109,11 +116,22 @@ function renderBoard() {
  Also return if it is not the turn of the player that clicked. Will allow player to switch
  selected piece if it is their turn*/
 function handleClick(evt) {
-  console.log([...evt.currentTarget.children].indexOf(evt.target.parentElement.parentElement));
-  console.log([...evt.target.parentElement.parentElement.children].indexOf(evt.target.parentElement));
+  if(!(evt.target.classList.contains('red') || evt.target.classList.contains('black'))) return; // Ignore click if it isnt a piece
+  let clickedRow = [...evt.currentTarget.children].indexOf(evt.target.parentElement.parentElement);
+  let clickedCol = [...evt.target.parentElement.parentElement.children].indexOf(evt.target.parentElement);
+  let selectedPiece = board[clickedRow][clickedCol];
+  // board[selectedPieceRow][selectedPieceCol].move();
+  console.log(selectedPiece);
+  console.log(selectedPiece.getLegalMoves());
+
+  
+
+  renderBoard();
 }
 
 console.log(board);
 console.log(board[5][2].getLegalMoves());
 
 
+let downRight = board[3][4];
+let downLeft = board[3][2];
