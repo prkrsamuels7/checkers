@@ -5,37 +5,41 @@ class Piece {
     this.player = player; // Which player piece belongs to
     this.row = row;
     this.col = col;
-    this.king = false; // King
-    this.getLegalMoves = function() {
-      let legalMoves = []
-      let downRight = board[row + 1][col + 1];
-      let downLeft = board[row + 1][col - 1];
-      if(this.player === 1) {
-        if((downRight.player === -1) && downRight.downRight === null) { // Starting jump logic
-          
+    this.jumpAvailable = false;
+    this.allowedToMove = true;
+    this.king = false;
+    this.getAvailableJumps = function() { // Check all pieces to see if any have a jump available
+      if(this.player === 1){
+        let downRight = board[row + 1][col + 1];
+        let downLeft = board[row + 1][col - 1];
+        if(downRight === null && downLeft === null){
+          this.jumpAvailable = false;
+          return;
+        } 
+        if(downRight?.player === -1 && downRight?.downRight === null) this.jumpAvailable = true;
+        if(downLeft?.player === -1 && downLeft?.downLeft === null) this.jumpAvailable = true;
+      };
+      if(this.player === -1) {
+        let upRight = board[row - 1][col + 1];
+        let upLeft = board[row - 1][col - 1];
+        if(upRight === null && upLeft === null) {
+          this.jumpAvailable = false;
+          return;
         }
-      }
-      if(this.player === 1 && this.king === false) {
-        if(board[row + 1][col + 1] === null) legalMoves.push([row + 1, col + 1]);
-        if(board[row + 1][col - 1] === null) legalMoves.push([row + 1, col - 1]);
-      } else {
-        if(board[row - 1][col + 1] === null) legalMoves.push([row - 1, col + 1]);
-        if(board[row - 1][col - 1] === null) legalMoves.push([row - 1, col - 1]);
-      }
-      return legalMoves;
+        if(upRight?.player === -1 && upRight?.downRight === null) this.jumpAvailable = true;
+        if(upLeft?.player === -1 && upLeft?.downLeft === null) this.jumpAvailable = true;
+      };
     };
+
+
     this.move = function() {
-      if(this.player === 1 && this.king === false) {
-        board[this.row][this.col] = null;
-        board[this.row + 1][this.col + 1] = this;
-      };
-      if(this.player === -1 && this.king === false) {
-        board[this.row][this.col] = null;
-        board[this.row - 1][this.col + 1] = this;
-      };
-    };
+      board[this.row - 2][this.col] = this;
+      board[this.row][this.col] = null;
+      
+      }
+    }
   };
-};
+
 
 
 /*------------constants------------*/
@@ -52,10 +56,15 @@ const NEW_BOARD = [
 	[-1,    null, -1,   null,  -1,    null,  -1,    null]
 ];
 
+const player = {
+  '-1': 'red',
+  '1': 'black'
+};
 
 /*------------state variables------------*/
 let board = []; // Array to represent board state
 let playerTurn; // Represents player turn w/ 1 or -1
+let pieces = [];
 let selectedPiece;
 
 
@@ -75,6 +84,7 @@ function init() {
   createNewBoard();
   playerTurn = -1;
   renderBoard();
+  populatePieces();
 }
 
 // Creates new board with Piece objes on appropriate square using a NEW_BOARD array
@@ -112,26 +122,31 @@ function renderBoard() {
 
 
 
-/* Return if item clicked is not a piece.
- Also return if it is not the turn of the player that clicked. Will allow player to switch
- selected piece if it is their turn*/
 function handleClick(evt) {
   if(!(evt.target.classList.contains('red') || evt.target.classList.contains('black'))) return; // Ignore click if it isnt a piece
+  // if(evt.target.classList !== player[playerTurn]) return;
   let clickedRow = [...evt.currentTarget.children].indexOf(evt.target.parentElement.parentElement);
   let clickedCol = [...evt.target.parentElement.parentElement.children].indexOf(evt.target.parentElement);
   let selectedPiece = board[clickedRow][clickedCol];
-  // board[selectedPieceRow][selectedPieceCol].move();
   console.log(selectedPiece);
-  console.log(selectedPiece.getLegalMoves());
-
-  
+  console.log()
+  // console.log(selectedPiece.getLegalMoves());  
+  console.log(evt.target.classList);
+  selectedPiece.move();
 
   renderBoard();
+  pieces.forEach((e) => {
+    e.getAvailableJumps();
+  })
+  playerTurn *= -1;
 }
 
-console.log(board);
-console.log(board[5][2].getLegalMoves());
+function populatePieces() { //Puts all piece objects into pieces array to check for pieces w/ legal moves
+  board.forEach((row, rowIdx) => {
+    row.forEach((col, colIdx) => {
+      if(col === null) return;
+      pieces.push(col);
+    })
+  })
+}
 
-
-let downRight = board[3][4];
-let downLeft = board[3][2];
