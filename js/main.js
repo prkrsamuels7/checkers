@@ -32,6 +32,8 @@ class Piece {
 
 
 /*------------constants------------*/
+
+// Used to initialize my board state and map pieces to respective player
 const NEW_BOARD = [
 	[null,  1,    null,  1,    null,  1,     null,  1],
 	[1,     null,  1,   null,  1,     null,  1,     null],
@@ -45,19 +47,15 @@ const NEW_BOARD = [
 
 
 /*------------state variables------------*/
-let board = [];
-let playerTurn;
+let board = []; // Array to represent board state
+let playerTurn; // Represents player turn w/ 1 or -1
 let selectedPiece;
 
 
 /*------------DOM elements------------*/
-const boardEls = [...document.querySelectorAll('tr')].map((row) => {
+const boardEls = [...document.querySelectorAll('tr')].map((row) => { // Array of the table data cells used in renderBoard function
   return [...row.children];
 });
-
-const pieceEls = [...document.getElementsByClassName('piece')];
-
-
 
 
 /*------------event listeners------------*/
@@ -72,7 +70,7 @@ function init() {
   renderBoard();
 }
 
-// Creates new board with objects on appropriate square using a NEW_BOARD array
+// Creates new board with Piece objes on appropriate square using a NEW_BOARD array
 function createNewBoard() {
   board = NEW_BOARD.map((boardRow, rowIdx) => {
     return boardRow.map((boardCol, colIdx) => {
@@ -82,6 +80,7 @@ function createNewBoard() {
   })
 }
 
+// Updates the visual representation of the board state
 function renderBoard() {
   board.forEach((row, rowIndex) => {
     row.forEach((col, colIndex) => {
@@ -111,8 +110,7 @@ function renderBoard() {
  selected piece if it is their turn*/
 function handleClick(evt) {
   console.log([...evt.currentTarget.children].indexOf(evt.target.parentElement.parentElement));
-  console.log([...evt.target.parentElement.parentElement.children].indexOf(evt.target.parentElement))
-  // playerTurn *= -1;
+  console.log([...evt.target.parentElement.parentElement.children].indexOf(evt.target.parentElement));
 }
 
 console.log(board);
