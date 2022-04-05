@@ -8,33 +8,54 @@ class Piece {
     this.jumpAvailable = false;
     this.allowedToMove = true;
     this.king = false;
-    this.getAvailableJumps = function() { // Check all pieces to see if any have a jump available
-      if(this.player === 1){
+    this.checkAvailableJumps = function() {
+      if(this.player === 1) {
         let downRight = board[row + 1][col + 1];
         let downLeft = board[row + 1][col - 1];
-        if(downRight === null && downLeft === null){
-          this.jumpAvailable = false;
-          return;
-        } 
-        if(downRight?.player === -1 && downRight?.downRight === null) this.jumpAvailable = true;
-        if(downLeft?.player === -1 && downLeft?.downLeft === null) this.jumpAvailable = true;
-      };
+        if(downRight) {
+          if(downRight.player === -1 && board[row + 2][col + 2] === null) {
+            this.jumpAvailable = true;
+            return;
+          } else {
+            this.jumpAvailable = false;
+          } 
+        }
+        if(downLeft) {
+          if(downLeft.player === -1 && board[row + 2][col - 2] === null) {
+            this.jumpAvailable = true;
+            return;
+          } else {
+            this.jumpAvailable = false;
+          } 
+        }
+      }
       if(this.player === -1) {
         let upRight = board[row - 1][col + 1];
         let upLeft = board[row - 1][col - 1];
-        if(upRight === null && upLeft === null) {
-          this.jumpAvailable = false;
-          return;
+        if(upRight) {
+          if(upRight.player === 1 && board[row - 2][col + 2] === null) {
+            this.jumpAvailable = true;
+            return;
+          } else {
+            this.jumpAvailable = false;
+          }
         }
-        if(upRight?.player === -1 && upRight?.downRight === null) this.jumpAvailable = true;
-        if(upLeft?.player === -1 && upLeft?.downLeft === null) this.jumpAvailable = true;
-      };
-    };
-
+        if(upLeft) {
+          if(upLeft.player === 1 && board[row - 2][col + 2] === null) {
+            this.jumpAvailable = true;
+            return;
+          } else {
+            this.jumpAvailable = false;
+          }
+        }
+      }
+    }
 
     this.move = function() {
       board[this.row - 2][this.col] = this;
       board[this.row][this.col] = null;
+      this.row = this.row - 2;
+      this.col = this.col;
       
       }
     }
@@ -136,12 +157,12 @@ function handleClick(evt) {
 
   renderBoard();
   pieces.forEach((e) => {
-    e.getAvailableJumps();
+    e.checkAvailableJumps();
   })
   playerTurn *= -1;
 }
 
-function populatePieces() { //Puts all piece objects into pieces array to check for pieces w/ legal moves
+function populatePieces() { //Puts all piece objects into pieces array to check for pieces w/ legal moves/jumps etc...
   board.forEach((row, rowIdx) => {
     row.forEach((col, colIdx) => {
       if(col === null) return;
