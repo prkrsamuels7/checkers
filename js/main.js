@@ -1,17 +1,34 @@
 /*------------------Classes---------------*/
 
 class Piece {
-  constructor(player) {
-    this.allowedToMove = true; // Every piece can move when game starts
-    // this.pieceEl = pieceEl; // Represents the linked DOM element
-    // this.position = position; // Position on board [row][col]
+  constructor(player, row, col) {
     this.player = player; // Which player piece belongs to
+    this.row = row;
+    this.col = col;
     this.king = false; // King
+    this.getLegalMoves = function() {
+      let legalMoves = []
+      if(this.player === 1 && this.king === false) {
+        if(board[row + 1][col + 1] === null) legalMoves.push([row + 1, col + 1]);
+        if(board[row + 1][col - 1] === null) legalMoves.push([row + 1, col - 1]);
+      } else {
+        if(board[row - 1][col + 1] === null) legalMoves.push([row - 1, col + 1]);
+        if(board[row - 1][col - 1] === null) legalMoves.push([row - 1, col - 1]);
+      }
+      return legalMoves;
+    };
     this.move = function() {
-
-    }
+      if(this.player === 1 && this.king === false) {
+        board[this.row][this.col] = null;
+        board[this.row + 1][this.col + 1] = this;
+      };
+      if(this.player === -1 && this.king === false) {
+        board[this.row][this.col] = null;
+        board[this.row - 1][this.col + 1] = this;
+      };
+    };
   };
-}
+};
 
 
 /*------------constants------------*/
@@ -37,13 +54,14 @@ let selectedPiece;
 const boardEls = [...document.querySelectorAll('tr')].map((row) => {
   return [...row.children];
 });
+
 const pieceEls = [...document.getElementsByClassName('piece')];
 
 
 
 
 /*------------event listeners------------*/
-document.querySelector('table').addEventListener('click', handleClick);
+document.querySelector('tbody').addEventListener('click', handleClick);
 
 /*------------functions------------*/
 init();
@@ -56,10 +74,10 @@ function init() {
 
 // Creates new board with objects on appropriate square using a NEW_BOARD array
 function createNewBoard() {
-  board = NEW_BOARD.map((boardRow) => {
-    return boardRow.map((boardCol) => {
+  board = NEW_BOARD.map((boardRow, rowIdx) => {
+    return boardRow.map((boardCol, colIdx) => {
       if(boardCol === null) return null;
-      return new Piece(boardCol);
+      return new Piece(boardCol, rowIdx, colIdx);
     })
   })
 }
@@ -79,10 +97,12 @@ function renderBoard() {
         square.add('red');
         square.remove('black');
         square.remove('hidden');
-      }
-    })
-  })
-}
+      };
+    });
+  });
+};
+
+
 
 
 
@@ -90,13 +110,12 @@ function renderBoard() {
  Also return if it is not the turn of the player that clicked. Will allow player to switch
  selected piece if it is their turn*/
 function handleClick(evt) {
-  if(!evt.target.classList.contains('piece')) return;
-  if(!evt.target.classList.contains(`${squareContains[playerTurn]}`)) return;
-  selectedPiece = evt.target;
-  console.log(selectedPiece);
-
-
+  console.log([...evt.currentTarget.children].indexOf(evt.target.parentElement.parentElement));
+  console.log([...evt.target.parentElement.parentElement.children].indexOf(evt.target.parentElement))
   // playerTurn *= -1;
 }
+
+console.log(board);
+console.log(board[5][2].getLegalMoves());
 
 
