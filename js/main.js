@@ -11,67 +11,67 @@ class Piece {
     this.makeKing = function () {
       this.king = true;
     };
-    this.checkAvailableJumps = function() { // Sets pieces jumpAvailable value to true if there is a jump
-      if(this.player === 1) {
-        let downRight = board[row + 1][col + 1];
-        let downLeft = board[row + 1][col - 1];
-        if(downRight) {
-          if(downRight.player === -1 && board[row + 2][col + 2] === null) {
-            this.jumpAvailable = true;
-            return;
-          } else {
-            this.jumpAvailable = false;
-          };
-        };
-        if(downLeft) {
-          if(downLeft.player === -1 && board[row + 2][col - 2] === null) {
-            this.jumpAvailable = true;
-            return;
-          } else {
-            this.jumpAvailable = false;
-          };
-        };
-      };
-      if(this.player === -1) {
-        let upRight = board[row - 1][col + 1];
-        let upLeft = board[row - 1][col - 1];
-        if(upRight) {
-          if(upRight.player === 1 && board[row - 2][col + 2] === null) {
-            this.jumpAvailable = true;
-            return;
-          } else {
-            this.jumpAvailable = false;
-          };
-        };
-        if(upLeft) {
-          if(upLeft.player === 1 && board[row - 2][col - 2] === null) {
-            this.jumpAvailable = true;
-            return;
-          } else {
-            this.jumpAvailable = false;
-          };
-        };
-      };
-    };
-    this.canPieceMove = function() {
-      if(this.jumpAvailable) {
-        return;
-      } 
-      if(this.player === 1) {
-        if(board[row + 1][col + 1] === null || board[row + 1][col - 1] === null) {
-          this.allowedToMove = true;
-        } else {
-          this.allowedToMove = false;
-        };
-      };
-      if(this.player === -1) {
-        if(board[row - 1][col + 1] === null || board[row - 1][col - 1] === null) {
-          this.allowedToMove = true;
-        } else {
-          this.allowedToMove = false;
-        };
-      };
-    };
+    // this.checkAvailableJumps = function() { // Sets pieces jumpAvailable value to true if there is a jump
+    //   if(this.player === 1) {
+    //     let downRight = board[row + 1][col + 1];
+    //     let downLeft = board[row + 1][col - 1];
+    //     if(downRight) {
+    //       if(downRight.player === -1 && board[row + 2][col + 2] === null) {
+    //         this.jumpAvailable = true;
+    //         return;
+    //       } else {
+    //         this.jumpAvailable = false;
+    //       };
+    //     };
+    //     if(downLeft) {
+    //       if(downLeft.player === -1 && board[row + 2][col - 2] === null) {
+    //         this.jumpAvailable = true;
+    //         return;
+    //       } else {
+    //         this.jumpAvailable = false;
+    //       };
+    //     };
+    //   };
+    //   if(this.player === -1) {
+    //     let upRight = board[row - 1][col + 1];
+    //     let upLeft = board[row - 1][col - 1];
+    //     if(upRight) {
+    //       if(upRight.player === 1 && board[row - 2][col + 2] === null) {
+    //         this.jumpAvailable = true;
+    //         return;
+    //       } else {
+    //         this.jumpAvailable = false;
+    //       };
+    //     };
+    //     if(upLeft) {
+    //       if(upLeft.player === 1 && board[row - 2][col - 2] === null) {
+    //         this.jumpAvailable = true;
+    //         return;
+    //       } else {
+    //         this.jumpAvailable = false;
+    //       };
+    //     };
+    //   };
+    // };
+    // this.canPieceMove = function() {
+    //   if(this.jumpAvailable) {
+    //     return;
+    //   } 
+    //   if(this.player === 1) {
+    //     if(board[row + 1][col + 1] === null || board[row + 1][col - 1] === null) {
+    //       this.allowedToMove = true;
+    //     } else {
+    //       this.allowedToMove = false;
+    //     };
+    //   };
+    //   if(this.player === -1) {
+    //     if(board[row - 1][col + 1] === null || board[row - 1][col - 1] === null) {
+    //       this.allowedToMove = true;
+    //     } else {
+    //       this.allowedToMove = false;
+    //     };
+    //   };
+    // };
     this.move = function(row, col) {
       if(board[row][col] !== null) return; // Makes sure square clicked does not have pice in it
 
@@ -83,6 +83,7 @@ class Piece {
             board[this.row][this.col] = null;
             this.row = row;
             this.col = col;
+            checkWinner();
             playerTurn *= -1;
           };
         };
@@ -95,6 +96,7 @@ class Piece {
             board[this.row][this.col] = null;
             this.row = row;
             this.col = col;
+            checkWinner();
             playerTurn *= -1;
           };
         };
@@ -107,6 +109,7 @@ class Piece {
             board[this.row][this.col] = null;
             this.row = row;
             this.col = col;
+            checkWinner();
             playerTurn *= -1;
           };
         };
@@ -119,6 +122,7 @@ class Piece {
             board[this.row][this.col] = null;
             this.row = row;
             this.col = col;
+            checkWinner();
             playerTurn *= -1;
           };
         };
@@ -148,39 +152,39 @@ class Piece {
 /*------------constants------------*/
 // Used to initialize my board state and map pieces to respective player
 const NEW_BOARD = [
-	[null,  1,    null,  1,    null,  1,     null,  1],
-	[1,     null,  1,   null,  1,     null,  1,     null],
-	[null,  1,    null,  1,    null,  1,     null,  1],
-	[null,  null, null, null,  null,  null,  null,  null],
-	[null,  null, null, null,  null,  null,  null,  null],
-	[-1,    null, -1,   null,  -1,    null,  -1,    null],
-	[null,  -1,   null, -1,    null,  -1,    null, -1],
-	[-1,    null, -1,   null,  -1,    null,  -1,    null]
+	[null, 1, null, 1, null, 1, null, 1],
+	[1, null, 1, null, 1, null, 1, null],
+	[null, 1, null, 1, null, 1, null, 1],
+	[null, null, null, null, null, null, null, null],
+	[null, null, null, null, null, null, null, null],
+	[-1, null, -1, null, -1, null, -1, null],
+	[null, -1, null, -1, null, -1, null, -1],
+	[-1, null, -1, null, -1, null, -1, null]
 ];
 
 const player = {
-  '-1': 'red',
-  '1': 'black'
+  '-1': 'RED',
+  '1': 'BLACK'
 };
 
 /*------------state variables------------*/
 let board = []; // Array to represent board state
 let playerTurn; // Represents player turn w/ 1 or -1
 let selectedPiece; // Holds currently selected pice for move functions
+let winner = null;
+let pieces = []; //Holds all pieces
 
 
 /*------------DOM elements------------*/
 const boardEls = [...document.querySelectorAll('tr')].map((row) => { // Array of the table data cells used in renderBoard function
   return [...row.children];
 });
-
 const resetGameBtn = document.querySelector('button');
-
 const alertMsg = document.querySelector('h2');
+const winMsg = document.querySelector('h3');
 
 /*------------event listeners------------*/
 document.querySelector('tbody').addEventListener('click', handleClick);
-
 resetGameBtn.addEventListener('click', init);
 
 /*------------functions------------*/
@@ -189,6 +193,7 @@ init();
 function init() {
   createNewBoard();
   renderBoard();
+  pushPiecesToArray();
   playerTurn = -1;
   alertMsg.innerHTML = '';
 };
@@ -228,11 +233,11 @@ function handleClick(evt) {
   let clickedRow = [...evt.currentTarget.children].indexOf(evt.target.parentElement);
   let clickedCol = [...evt.target.parentElement.children].indexOf(evt.target);
   if(selectedPiece){
-    console.log(selectedPiece);
     if(selectedPiece.player !== playerTurn) {
       selectedPiece = null;
       alertMsg.classList.remove('hidden');
       alertMsg.innerHTML = `It's ${player[playerTurn]}'s turn!`
+      return;
     }
     selectedPiece.move(clickedRow, clickedCol);
     selectedPiece = null;
@@ -240,5 +245,28 @@ function handleClick(evt) {
     selectedPiece = board[clickedRow][clickedCol];
   }
   renderBoard();
+  // checkWinner();
   alertMsg.classList.add('hidden');
 };
+
+function pushPiecesToArray() {
+  board.forEach(function(row) {
+    row.forEach(function(col) {
+      if(col === null) return;
+      pieces.push(col);
+    })
+  })
+}
+
+function checkWinner() {
+  if(!(pieces.some((element) => element.player === -1))) {
+    winner = 1;
+    winMsg.innerHTML = `${player[winner]} WINS!`
+  }
+  if(!(pieces.some((element) => element.player === 1))) {
+    winner = -1;
+    winMsg.innerHTML = `${player[winner]} WINS!`
+
+  }
+}
+
