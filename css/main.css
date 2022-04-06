@@ -2,6 +2,9 @@
     margin: auto;
 }
 
+body {
+    background-color: #f5ebdc;
+}
 main {
     display: flex;
     flex-direction: column;
@@ -9,7 +12,6 @@ main {
     align-items: center;
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: lightslategrey;
 }
 
 h1 {
@@ -17,6 +19,9 @@ h1 {
     display: flex;
     margin-top: auto;
     margin-bottom: 50px;
+    color: #5e4328;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
 
 div {
@@ -29,6 +34,8 @@ td {
     background-color: #BA7A3A;
     width: 7vmin;
     height: 7vmin;
+    /* border-style: solid;
+    border-color: black; */
 }
 
 .ls {
@@ -59,8 +66,9 @@ td {
     display: flex;
     margin-top: 50px;
     padding: 2vmin 2vmin;
-    border: none;
+    border: solid;
     border-radius: 1vmin;
+    border-color: black;
     color: #964B00;
     cursor: pointer;
     font-size: 2vmin;
@@ -75,4 +83,10 @@ td {
 
 .hidden {
     display: none;
+}
+
+.message {
+    display: flex;
+    margin: auto;
+    height: 4vmin;
 }
