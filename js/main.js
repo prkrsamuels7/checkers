@@ -8,7 +8,10 @@ class Piece {
     this.jumpAvailable = false;
     this.allowedToMove = true;
     this.king = false;
-    this.checkAvailableJumps = function() {
+    this.makeKing = function () {
+      this.king = true;
+    }
+    this.checkAvailableJumps = function() { // Sets pieces jumpAvailable value to true if there is a jump
       if(this.player === 1) {
         let downRight = board[row + 1][col + 1];
         let downLeft = board[row + 1][col - 1];
@@ -18,8 +21,8 @@ class Piece {
             return;
           } else {
             this.jumpAvailable = false;
-          } 
-        }
+          }
+        };
         if(downLeft) {
           if(downLeft.player === -1 && board[row + 2][col - 2] === null) {
             this.jumpAvailable = true;
@@ -27,8 +30,8 @@ class Piece {
           } else {
             this.jumpAvailable = false;
           } 
-        }
-      }
+        };
+      };
       if(this.player === -1) {
         let upRight = board[row - 1][col + 1];
         let upLeft = board[row - 1][col - 1];
@@ -39,28 +42,57 @@ class Piece {
           } else {
             this.jumpAvailable = false;
           }
-        }
+        };
         if(upLeft) {
-          if(upLeft.player === 1 && board[row - 2][col + 2] === null) {
+          if(upLeft.player === 1 && board[row - 2][col - 2] === null) {
             this.jumpAvailable = true;
             return;
           } else {
             this.jumpAvailable = false;
           }
-        }
-      }
-    }
-
-    this.move = function() {
-      board[this.row - 2][this.col] = this;
+        };
+      };
+    };
+    this.canPieceMove = function() {
+      if(this.jumpAvailable) {
+        return;
+      } 
+      if(this.player === 1) {
+        if(board[row + 1][col + 1] === null || board[row + 1][col - 1] === null) {
+          this.allowedToMove = true;
+        } else {
+          this.allowedToMove = false;
+        };
+      };
+      if(this.player === -1) {
+        if(board[row - 1][col + 1] === null || board[row - 1][col - 1] === null) {
+          this.allowedToMove = true;
+        } else {
+          this.allowedToMove = false;
+        };
+      };
+    };
+    this.move = function(row, col) {
+      board[row][col] = this;
       board[this.row][this.col] = null;
-      this.row = this.row - 2;
-      this.col = this.col;
-      
+      this.row = row;
+      this.col = col;
+      console.log('pieceMoved');
+      playerTurn *= -1;
       }
     }
   };
 
+  class Board {
+    constuctor() {
+      this.checkIfJumpExist = function() {
+        this.jumpExist = false;
+        for(let i of pieces) {
+          i.allowedToMove = false;
+        }
+      }
+    }
+  }
 
 
 /*------------constants------------*/
@@ -80,6 +112,10 @@ const NEW_BOARD = [
 const player = {
   '-1': 'red',
   '1': 'black'
+};
+
+var distance = function(x1, y1, x2, y2) {
+  return (Math.abs(x2 - x1) / 2) + (Math.abs(y2 - y1) / 2);
 };
 
 /*------------state variables------------*/
@@ -132,34 +168,43 @@ function renderBoard() {
         square.remove('hidden');
       } else {
         square.add('red');
-        square.remove('black');
+        square.remove('blck');
         square.remove('hidden');
       };
     });
   });
 };
 
-
-
-
-
 function handleClick(evt) {
-  if(!(evt.target.classList.contains('red') || evt.target.classList.contains('black'))) return; // Ignore click if it isnt a piece
-  // if(evt.target.classList !== player[playerTurn]) return;
-  let clickedRow = [...evt.currentTarget.children].indexOf(evt.target.parentElement.parentElement);
-  let clickedCol = [...evt.target.parentElement.parentElement.children].indexOf(evt.target.parentElement);
-  let selectedPiece = board[clickedRow][clickedCol];
-  console.log(selectedPiece);
-  console.log()
-  // console.log(selectedPiece.getLegalMoves());  
-  console.log(evt.target.classList);
-  selectedPiece.move();
+  let clickedRow = [...evt.currentTarget.children].indexOf(evt.target.parentElement);
+  let clickedCol = [...evt.target.parentElement.children].indexOf(evt.target);
+  if(selectedPiece){
+    selectedPiece.move(clickedRow, clickedCol);
+    selectedPiece = null;
+  } else {
+    selectedPiece = board[clickedRow][clickedCol];
+  }
+  // if(!(evt.target.firstChild.classList.contains('red') || evt.target.firstChild.classList.contains('black'))) return; // Ignore click if it isnt a piece
+  
 
+
+  pieces.forEach((piece) => { // First check low level piece moves. only one space
+    piece.canPieceMove();
+  });
+
+  pieces.forEach((piece) => { // Next, overwrite move availability by checking if there are available jumps
+    piece.checkAvailableJumps();
+  });
+
+  // if(selectedPiece.allowedToMove === false) {
+  //   console.log('There are jumps available');
+  //   return;
+  // } else {
+  //   selectedPiece.move();
+  // }
+  
   renderBoard();
-  pieces.forEach((e) => {
-    e.checkAvailableJumps();
-  })
-  playerTurn *= -1;
+  
 }
 
 function populatePieces() { //Puts all piece objects into pieces array to check for pieces w/ legal moves/jumps etc...
@@ -170,4 +215,3 @@ function populatePieces() { //Puts all piece objects into pieces array to check 
     })
   })
 }
-

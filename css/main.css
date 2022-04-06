@@ -48,6 +48,7 @@ td {
     border-radius: 100%;
     border-style: solid;
     border-color: white;
+    pointer-events: none;
 }
 
 .red {
