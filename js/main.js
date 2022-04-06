@@ -53,6 +53,8 @@ class Piece {
         };
       };
     };
+
+
     this.canPieceMove = function() {
       if(this.jumpAvailable) {
         return;
@@ -72,27 +74,106 @@ class Piece {
         };
       };
     };
-    this.move = function(row, col) {
-      board[row][col] = this;
-      board[this.row][this.col] = null;
-      this.row = row;
-      this.col = col;
-      console.log('pieceMoved');
-      playerTurn *= -1;
-      }
-    }
-  };
 
-  class Board {
-    constuctor() {
-      this.checkIfJumpExist = function() {
-        this.jumpExist = false;
-        for(let i of pieces) {
-          i.allowedToMove = false;
+
+    this.move = function(row, col) {
+      if(board[row][col] !== null) return; // Makes sure square clicked does not have pice in it
+
+      if(this.player === 1){ //Captures piece downRight
+        if(board[row][col] === null && (row - this.row) === 2 && Math.abs(col - this.col) === 2 && board[this.row + 1][this.col + 1]) {
+          if(board[this.row + 1][this.col + 1].player === -1) {
+            board[this.row + 1][this.col + 1] = null; // Sets jumped piece to null
+            board[row][col] = this; 
+            board[this.row][this.col] = null;
+            this.row = row;
+            this.col = col;
+            playerTurn *= -1;
+          }
+        }
+      }
+
+      if(this.player === 1){ // Captures pice downLeft 
+        if(board[row][col] === null && (row - this.row) === 2 && Math.abs(col - this.col) === 2 && board[this.row + 1][this.col - 1]) {
+          if(board[this.row + 1][this.col - 1].player === -1) {
+            board[this.row + 1][this.col - 1] = null;
+            board[row][col] = this;
+            board[this.row][this.col] = null;
+            this.row = row;
+            this.col = col;
+            playerTurn *= -1;
+          }
+        }
+      }
+      
+      if(this.player === -1) { // Captures piece upRight
+        if(board[row][col] === null && (row - this.row) === -2 && Math.abs(col - this.col) === 2 && board[this.row - 1][this.col + 1]) {
+          if(board[this.row - 1][this.col + 1].player === 1) {
+            board[this.row - 1][this.col + 1] = null;
+            board[row][col] = this;
+            board[this.row][this.col] = null;
+            this.row = row;
+            this.col = col;
+            playerTurn *= -1;
+          }
+        }
+      }
+
+      if(this.player === -1) { // Caputes pice upLeft
+        if(board[row][col] === null && (row - this.row) === -2 && Math.abs(col - this.col) === 2 && board[this.row - 1][this.col - 1]) {
+          if(board[this.row - 1][this.col - 1].player === 1) {
+            board[this.row - 1][this.col - 1] = null;
+            board[row][col] = this;
+            board[this.row][this.col] = null;
+            this.row = row;
+            this.col = col;
+            playerTurn *= -1;
+          }
+        }
+      }
+
+      if(this.player === 1 && this.king === false) {
+        if((row - this.row === 1) && Math.abs(col - this.col) === 1) {
+          board[row][col] = this;
+          board[this.row][this.col] = null;
+          this.row = row;
+          this.col = col;
+          console.log('pieceMoved');
+          playerTurn *= -1;
+        };
+      };
+
+
+      if(this.player === -1 && this.king === false) {
+        if((row - this.row === -1) && Math.abs(col - this.col) === 1) {
+          board[row][col] = this;
+          board[this.row][this.col] = null;
+          this.row = row;
+          this.col = col;
+          console.log('pieceMoved');
+          playerTurn *= -1;
+        };
+      };
+
+
+    };
+  };
+};
+
+class Board {
+  constuctor() {
+    this.jumpExist = false;
+    this.checkIfJumpExist = function() {
+      this.jumpExist = false;
+      for(let i of pieces) {
+        i.allowedToMove = false;
+        if(i.jumpAvailable) {
+          this.jumpExist = true;
+          i.allowedToMove = true;
         }
       }
     }
   }
+}
 
 
 /*------------constants------------*/
@@ -123,6 +204,7 @@ let board = []; // Array to represent board state
 let playerTurn; // Represents player turn w/ 1 or -1
 let pieces = [];
 let selectedPiece;
+let gameBoard = new Board;
 
 
 /*------------DOM elements------------*/
@@ -178,16 +260,15 @@ function renderBoard() {
 function handleClick(evt) {
   let clickedRow = [...evt.currentTarget.children].indexOf(evt.target.parentElement);
   let clickedCol = [...evt.target.parentElement.children].indexOf(evt.target);
+  console.log(clickedRow);
+  console.log(clickedCol);
   if(selectedPiece){
     selectedPiece.move(clickedRow, clickedCol);
     selectedPiece = null;
   } else {
     selectedPiece = board[clickedRow][clickedCol];
   }
-  // if(!(evt.target.firstChild.classList.contains('red') || evt.target.firstChild.classList.contains('black'))) return; // Ignore click if it isnt a piece
   
-
-
   pieces.forEach((piece) => { // First check low level piece moves. only one space
     piece.canPieceMove();
   });
@@ -195,13 +276,6 @@ function handleClick(evt) {
   pieces.forEach((piece) => { // Next, overwrite move availability by checking if there are available jumps
     piece.checkAvailableJumps();
   });
-
-  // if(selectedPiece.allowedToMove === false) {
-  //   console.log('There are jumps available');
-  //   return;
-  // } else {
-  //   selectedPiece.move();
-  // }
   
   renderBoard();
   

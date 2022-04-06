@@ -58,12 +58,12 @@ td {
 .play-again-btn {
     display: flex;
     margin-top: 50px;
-    padding: 10px 20px;
+    padding: 2vmin 2vmin;
     border: none;
-    border-radius: 20px;
-    color:blueviolet;
+    border-radius: 1vmin;
+    color: #964B00;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 2vmin;
     text-transform: uppercase;
     font-weight: bold;
 }
