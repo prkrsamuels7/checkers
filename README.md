@@ -1,3 +1,5 @@
+<link rel="images" href="images">
+
 <div align="center">
   <h1>:school_satchel: :school: Checkers :school: :school_satchel: </h1>
   <h3>https://prkrsamuels7.github.io/checkers/</h3>
@@ -14,22 +16,14 @@
 </div>
 
 <h1>:pencil: Description</h1>
-<p>Really awesome game of checkers!</p>
-
-<details>
-<summary> :bar_chart: ERD</summary>
-
-| Description | Screenshot |
-|------------ | ------------|
-| <h3 align="center">ERD</h3> | <img src="https://``github.com/amarpan/meet-your-classmates/raw/main/public/Screenshots/ERD.MYC.png" width="700"> |
-</details>
+<p align="center" >Really awesome game of checkers!</p>
 
 <details>
 <summary> :art: Wireframes</summary>
 
 | Description | Screenshot |
 |------------ | ------------|
-| <h3 align="center">Home Page</h3> | <img src="https://imgur.com/b2d301f5-f57e-475a-bfb4-85b5e70dfa8d" width="700"/>
+| <h3 align="center">Home Page</h3> | <img src="images/chekers-wireframe.jpg" width="700"/>
 </details>
 
 <details open>
@@ -37,6 +31,36 @@
 
 | Description | Screenshot |
 |------------ | ------------|
-| <h3 align="center">Feed Page</h3> | <img src="https://github.com/amarpan/meet-your-classmates/blob/main/public/Screenshots/FeedPage.png?raw=true" width="700"/> |
-| <h3 align="center">Profile Page</h3> | <img src="https://github.com/amarpan/meet-your-classmates/raw/main/public/Screenshots/ProfilePage.png" width="700"/> |
+| <h3 align="center">Main Game</h3> | <img src="images/checkers-game-screenshot.png" width="700"/> |
 </details>
+
+## :computer: Technologies Used
+
+![JavaScript](https://img.shields.io/badge/-JavaScript-333?style=flat&logo=javascript) 
+![HTML5](https://img.shields.io/badge/-HTML5-333?style=flat&logo=html5)
+![CSS3](https://img.shields.io/badge/-CSS-333?style=flat&logo=css3)
+![Markdown](https://img.shields.io/badge/-Markdown-333?style=flat&logo=markdown)
+![Git](https://img.shields.io/badge/-Git-333?style=flat&logo=git)
+![Github](https://img.shields.io/badge/-GitHub-333?style=flat&logo=github)
+![VSCode](https://img.shields.io/badge/-VS_Code-333?style=flat&logo=visualstudio) 
+
+<h2> :atom_symbol: Getting Started </h2>
+
+<h3> :calling: Instructions </h3>
+<details open>
+<summary>Game Directions</summary>
+<ol>
+<li>Red starts the game, then turns alternate</li>
+<li>Can only move and capture pieces diagonally</li>
+</ol>
+</details>
+
+## :fast_forward: Next Steps   
+
+### Upcoming Features
+
+- [ ] Add 'King' functionality   
+
+- [ ] Force jumps when available   
+
+- [ ] Add double jump functionality 
