@@ -1,7 +1,7 @@
 <link rel="images" href="images">
 
 <div align="center">
-  <h1>:school_satchel: :school: Checkers :school: :school_satchel: </h1>
+  <h1>:checkered_flag: :video_game: Checkers :video_game: :checkered_flag: </h1>
   <h3>https://prkrsamuels7.github.io/checkers/</h3>
   <h5>Parker Samuels</h5>`                             
   <a href="https://github.com/prkrsamuels7" target="_blank">
@@ -16,22 +16,22 @@
 </div>
 
 <h1>:pencil: Description</h1>
-<p align="center" >Really awesome game of checkers!</p>
+<p align="center" >First ever game of checkers!</p>
 
 <details>
-<summary> :art: Wireframes</summary>
+  <summary> :art: Wireframes</summary>
 
-| Description | Screenshot |
-|------------ | ------------|
-| <h3 align="center">Home Page</h3> | <img src="images/chekers-wireframe.jpg" width="700"/>
+  | Description | Screenshot |
+  |------------ | ------------|
+  | <h3 align="center">Main Game</h3> | <img src="images/chekers-wireframe.jpg" width="700"/>
 </details>
 
 <details open>
-<summary> :gear: Functionality</summary>
+  <summary> :gear: Functionality</summary>
 
-| Description | Screenshot |
-|------------ | ------------|
-| <h3 align="center">Main Game</h3> | <img src="images/checkers-game-screenshot.png" width="700"/> |
+  | Description | Screenshot |
+  |------------ | ------------|
+  | <h3 align="center">Main Game</h3> | <img src="images/checkers-game-screenshot.png" width="700"/> |
 </details>
 
 ## :computer: Technologies Used
@@ -48,11 +48,11 @@
 
 <h3> :calling: Instructions </h3>
 <details open>
-<summary>Game Directions</summary>
-<ol>
-<li>Red starts the game, then turns alternate</li>
-<li>Can only move and capture pieces diagonally</li>
-</ol>
+  <summary>Game Directions</summary>
+  <ol>
+  <li>Red starts the game, then turns alternate</li>
+  <li>Can only move and capture pieces diagonally</li>
+  </ol>
 </details>
 
 ## :fast_forward: Next Steps   
