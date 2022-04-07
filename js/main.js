@@ -158,7 +158,7 @@ const NEW_BOARD = [
 	[-1, null, -1, null, -1, null, -1, null]
 ];
 
-const player = {
+const player = { // player object for rendering win message and player turn
   '-1': 'RED',
   '1': 'BLACK'
 };
@@ -167,8 +167,7 @@ const player = {
 let board = []; // Array to represent board state
 let playerTurn; // Represents player turn w/ 1 or -1
 let selectedPiece; // Holds currently selected pice for move functions
-let winner = null;
-let pieces = []; //Holds all pieces
+let winner = null; // Will hold 1 if black wins and -1 if red ends
 
 
 /*------------DOM elements------------*/
@@ -189,9 +188,9 @@ init();
 function init() {
   createNewBoard();
   renderBoard();
-  pushPiecesToArray();
   playerTurn = -1;
   alertMsg.innerHTML = '';
+  winMsg.innerHTML = '';
 };
 
 // Creates new board with Piece objes on appropriate square using a NEW_BOARD array
@@ -225,6 +224,7 @@ function renderBoard() {
   });
 };
 
+// Grabs the index of the row and column of where the click is made
 function handleClick(evt) {
   let clickedRow = [...evt.currentTarget.children].indexOf(evt.target.parentElement);
   let clickedCol = [...evt.target.parentElement.children].indexOf(evt.target);
@@ -234,47 +234,35 @@ function handleClick(evt) {
       alertMsg.classList.remove('hidden');
       alertMsg.innerHTML = `It's ${player[playerTurn]}'s turn!`
       return;
-    }
+    };
     selectedPiece.move(clickedRow, clickedCol);
-    // checkWinner(); // Need to check winner after every move is made
+    checkWinner();
     selectedPiece = null;
   } else {
     selectedPiece = board[clickedRow][clickedCol];
-  }
+  };
   renderBoard();
-  // checkWinner();
   alertMsg.classList.add('hidden');
 };
 
-function pushPiecesToArray() {
-  board.forEach(function(row) {
-    row.forEach(function(col) {
+// Checks if red or black still has pieces after every move is made
+function checkWinner() {
+  if(!(board.some(function(row) {
+    return row.some(function(col) {
       if(col === null) return;
-      pieces.push(col);
-    });
-  });
+      return col.player === -1;
+    })
+  }))) {
+    winner = 1;
+    winMsg.innerHTML = `${player[winner]} WINS!`
+  };
+  if(!(board.some(function(row) {
+    return row.some(function(col) {
+      if(col === null) return;
+      return col.player === 1;
+    })
+  }))) {
+    winner = -1;
+    winMsg.innerHTML = `${player[winner]} WINS!`
+  };
 };
-
-// function checkWinner() {
-//   if(!(pieces.some((row) => {
-//     return row.some((col) => {
-//       if(col === null) return;
-//       return col.player === -1;
-//     })
-//   }))) {
-//     winner = 1;
-//     winMsg.innerHTML = `${player[winner]} WINS!`
-//   };
-// };
-
-// function checkWinner() {
-//   if(!(pieces.some((row) => row.some((col) => col.player === -1)))) {
-//     winner = 1;
-//     winMsg.innerHTML = `${player[winner]} WINS!`
-//   }
-
-//   if(!(pieces.some((row) => row.some((col) => col.player === 1)))) {
-//     winner = -1;
-//     winMsg.innerHTML = `${player[winner]} WINS!`
-//   }
-// }
