@@ -1,4 +1,7 @@
 <link rel="images" href="images">
+<div align="center">
+   <img src="images/checkers-readme-banner.jpg" width="800" height="400" />
+</div>
 
 <div align="center">
   <h1>:checkered_flag: :video_game: Checkers :video_game: :checkered_flag: </h1>
@@ -18,7 +21,7 @@
 <h1>:pencil: Description</h1>
 <p align="center" >First ever game of checkers!</p>
 
-<details>
+<details> 
   <summary> :art: Wireframes</summary>
 
   | Description | Screenshot |
