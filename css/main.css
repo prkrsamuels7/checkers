@@ -53,7 +53,7 @@ td {
     background-color: black;
 }
 
-.black, .red {
+.black, .red, .bking, .rking {
     height: 5vmin;
     width: 5vmin;
     border-radius: 100%;
@@ -65,6 +65,14 @@ td {
 .red {
     background-color: red;
 } 
+
+.bking {
+    background-color: blue;
+}
+
+.rking {
+    background-color: pink;
+}
 
 .play-again-btn {
     display: flex;

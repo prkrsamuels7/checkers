@@ -5,77 +5,23 @@ class Piece {
     this.player = player; // Which player piece belongs to
     this.row = row;
     this.col = col;
-    this.jumpAvailable = false;
-    this.allowedToMove = true;
     this.king = false;
     this.makeKing = function () {
       this.king = true;
     };
-    // this.checkAvailableJumps = function() { // Sets pieces jumpAvailable value to true if there is a jump
-    //   if(this.player === 1) {
-    //     let downRight = board[row + 1][col + 1];
-    //     let downLeft = board[row + 1][col - 1];
-    //     if(downRight) {
-    //       if(downRight.player === -1 && board[row + 2][col + 2] === null) {
-    //         this.jumpAvailable = true;
-    //         return;
-    //       } else {
-    //         this.jumpAvailable = false;
-    //       };
-    //     };
-    //     if(downLeft) {
-    //       if(downLeft.player === -1 && board[row + 2][col - 2] === null) {
-    //         this.jumpAvailable = true;
-    //         return;
-    //       } else {
-    //         this.jumpAvailable = false;
-    //       };
-    //     };
-    //   };
-    //   if(this.player === -1) {
-    //     let upRight = board[row - 1][col + 1];
-    //     let upLeft = board[row - 1][col - 1];
-    //     if(upRight) {
-    //       if(upRight.player === 1 && board[row - 2][col + 2] === null) {
-    //         this.jumpAvailable = true;
-    //         return;
-    //       } else {
-    //         this.jumpAvailable = false;
-    //       };
-    //     };
-    //     if(upLeft) {
-    //       if(upLeft.player === 1 && board[row - 2][col - 2] === null) {
-    //         this.jumpAvailable = true;
-    //         return;
-    //       } else {
-    //         this.jumpAvailable = false;
-    //       };
-    //     };
-    //   };
-    // };
-    // this.canPieceMove = function() {
-    //   if(this.jumpAvailable) {
-    //     return;
-    //   } 
-    //   if(this.player === 1) {
-    //     if(board[row + 1][col + 1] === null || board[row + 1][col - 1] === null) {
-    //       this.allowedToMove = true;
-    //     } else {
-    //       this.allowedToMove = false;
-    //     };
-    //   };
-    //   if(this.player === -1) {
-    //     if(board[row - 1][col + 1] === null || board[row - 1][col - 1] === null) {
-    //       this.allowedToMove = true;
-    //     } else {
-    //       this.allowedToMove = false;
-    //     };
-    //   };
-    // };
     this.move = function(row, col) {
-      if(board[row][col] !== null) return; // Makes sure square clicked does not have pice in it
-
-      if(this.player === 1){ //Captures piece downRight
+      if(board[row][col] !== null) return; // Makes sure square clicked does not have piece in it
+      if((this.player === 1 && this.row === 7) || (this.player === -1 && this.row === 0)) this.king = true;
+      if(this.king === true) {
+        if(Math.abs(row - this.row) === 1 && Math.abs(col - this.col) === 1) {
+          board[row][col] = this;
+          board[this.row][this.col] = null;
+          this.row = row;
+          this.col = col;
+          playerTurn *= -1;
+        };
+      };
+      if(this.player === 1 || this.king === true){ //Captures piece downRight
         if(board[row][col] === null && (row - this.row) === 2 && (col - this.col) === 2 && board[this.row + 1][this.col + 1]) {
           if(board[this.row + 1][this.col + 1].player === -1) {
             board[this.row + 1][this.col + 1] = null; // Sets jumped piece to null
@@ -87,7 +33,7 @@ class Piece {
           };
         };
       };
-      if(this.player === 1){ // Captures pice downLeft 
+      if(this.player === 1 || this.king === true){ // Captures pice downLeft 
         if(board[row][col] === null && (row - this.row) === 2 && (col - this.col) === -2 && board[this.row + 1][this.col - 1]) {
           if(board[this.row + 1][this.col - 1].player === -1) {
             board[this.row + 1][this.col - 1] = null;
@@ -99,7 +45,7 @@ class Piece {
           };
         };
       };
-      if(this.player === -1) { // Captures piece upRight
+      if(this.player === -1 || this.king === true) { // Captures piece upRight
         if(board[row][col] === null && (row - this.row) === -2 && (col - this.col) === 2 && board[this.row - 1][this.col + 1]) {
           if(board[this.row - 1][this.col + 1].player === 1) {
             board[this.row - 1][this.col + 1] = null;
@@ -111,7 +57,7 @@ class Piece {
           };
         };
       };
-      if(this.player === -1) { // Captures pice upLeft
+      if(this.player === -1 || this.king === true) { // Captures pice upLeft
         if(board[row][col] === null && (row - this.row) === -2 && (col - this.col) === -2 && board[this.row - 1][this.col - 1]) {
           if(board[this.row - 1][this.col - 1].player === 1) {
             board[this.row - 1][this.col - 1] = null;
@@ -215,7 +161,7 @@ function renderBoard() {
         square.add('black');
         square.remove('red');
         square.remove('hidden');
-      } else {
+      } else if (col.player === -1){
         square.add('red');
         square.remove('blck');
         square.remove('hidden');
