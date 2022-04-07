@@ -83,7 +83,6 @@ class Piece {
             board[this.row][this.col] = null;
             this.row = row;
             this.col = col;
-            checkWinner();
             playerTurn *= -1;
           };
         };
@@ -96,7 +95,6 @@ class Piece {
             board[this.row][this.col] = null;
             this.row = row;
             this.col = col;
-            checkWinner();
             playerTurn *= -1;
           };
         };
@@ -109,7 +107,6 @@ class Piece {
             board[this.row][this.col] = null;
             this.row = row;
             this.col = col;
-            checkWinner();
             playerTurn *= -1;
           };
         };
@@ -122,7 +119,6 @@ class Piece {
             board[this.row][this.col] = null;
             this.row = row;
             this.col = col;
-            checkWinner();
             playerTurn *= -1;
           };
         };
@@ -240,6 +236,7 @@ function handleClick(evt) {
       return;
     }
     selectedPiece.move(clickedRow, clickedCol);
+    // checkWinner(); // Need to check winner after every move is made
     selectedPiece = null;
   } else {
     selectedPiece = board[clickedRow][clickedCol];
@@ -254,19 +251,30 @@ function pushPiecesToArray() {
     row.forEach(function(col) {
       if(col === null) return;
       pieces.push(col);
-    })
-  })
-}
+    });
+  });
+};
 
-function checkWinner() {
-  if(!(pieces.some((element) => element.player === -1))) {
-    winner = 1;
-    winMsg.innerHTML = `${player[winner]} WINS!`
-  }
-  if(!(pieces.some((element) => element.player === 1))) {
-    winner = -1;
-    winMsg.innerHTML = `${player[winner]} WINS!`
+// function checkWinner() {
+//   if(!(pieces.some((row) => {
+//     return row.some((col) => {
+//       if(col === null) return;
+//       return col.player === -1;
+//     })
+//   }))) {
+//     winner = 1;
+//     winMsg.innerHTML = `${player[winner]} WINS!`
+//   };
+// };
 
-  }
-}
+// function checkWinner() {
+//   if(!(pieces.some((row) => row.some((col) => col.player === -1)))) {
+//     winner = 1;
+//     winMsg.innerHTML = `${player[winner]} WINS!`
+//   }
 
+//   if(!(pieces.some((row) => row.some((col) => col.player === 1)))) {
+//     winner = -1;
+//     winMsg.innerHTML = `${player[winner]} WINS!`
+//   }
+// }

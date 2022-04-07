@@ -5,6 +5,7 @@
 body {
     background-color: #f5ebdc;
 }
+
 main {
     display: flex;
     flex-direction: column;
@@ -34,8 +35,6 @@ td {
     background-color: #BA7A3A;
     width: 7vmin;
     height: 7vmin;
-    /* border-style: solid;
-    border-color: black; */
 }
 
 .ls {
@@ -49,6 +48,7 @@ td {
 .black {
     background-color: black;
 }
+
 .black, .red {
     height: 5vmin;
     width: 5vmin;
